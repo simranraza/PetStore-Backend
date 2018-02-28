@@ -1,0 +1,10 @@
+version: "2"
+services:
+  web:
+    build: .
+    command: java -jar target/gs-rest-service-0.1.0.jar
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/code
+      - ./dependencies:/root/.m2
