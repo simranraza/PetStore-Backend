@@ -28,7 +28,13 @@ public class OwnerService {
         return ownerRepository.findAll();
     }
     
-    public void createOwner(Owner owner) {
-        ownerRepository.save(owner);
+    public Owner createOwner(Owner owner) {
+        Owner newOwner = ownerRepository.save(owner);
+        return newOwner;
+    }
+    
+    public Owner getOwnerById(long id) {
+        
+        return ownerRepository.findOne(id);
     }
 }

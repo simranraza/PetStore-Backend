@@ -7,6 +7,7 @@ package petstore.models;
 
 import java.time.LocalDate;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Pet {
     @Column(name="birthday")
     private Date birthday;
     
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Owner owner;
     
     public long getId() {

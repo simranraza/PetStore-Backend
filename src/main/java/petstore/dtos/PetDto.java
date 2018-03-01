@@ -5,23 +5,32 @@
  */
 package petstore.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author zion
  */
-public class PetDto {
-    private long id;
+public class PetDto extends BaseDto{
+    
     private String name;
     private String birthday;
-    private long owner_id;
-
-    public long getId() {
-        return id;
+    private OwnerDto owner;
+    
+    public PetDto(){
+        
     }
 
-    public void setId(long id) {
+    public PetDto(long id, String name, String birthday, OwnerDto owner) {
         this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.owner = owner;
     }
+    
+    
+
+   
 
     public String getName() {
         return name;
@@ -31,20 +40,20 @@ public class PetDto {
         this.name = name;
     }
 
-    public long getOwner_id() {
-        return owner_id;
-    }
-
-    public void setOwner_id(long owner_id) {
-        this.owner_id = owner_id;
-    }
-
     public String getBirthday() {
         return birthday;
     }
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public OwnerDto getOwner() {
+        return owner;
+    }
+
+    public void setOwner(OwnerDto owner) {
+        this.owner = owner;
     }
     
     

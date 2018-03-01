@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import petstore.dtos.OwnerDto;
 import petstore.models.Owner;
 import petstore.services.OwnerService;
+import petstore.services.PetService;
+import petstore.transformers.OwnerTransformer;
 
 /**
  *
@@ -31,28 +33,28 @@ public class OwnerResource {
     @Autowired
     OwnerService ownerService;
     
+    @Autowired
+    PetService petService;
+    
+    @Autowired
+    OwnerTransformer ownerTransformer;
+    
     @RequestMapping(value = "/owners",method = RequestMethod.GET)
     public ResponseEntity<List<OwnerDto>> getAllOwners() {
-        List<OwnerDto> owners = new ArrayList<>();
+        List<OwnerDto> ownerDtos = new ArrayList<>();
+        List<Owner> owners = new ArrayList(ownerService.getAllOwners());
+        for (Owner owner: owners) {
+            ownerDtos.add(ownerTransformer.transformPojo(owner));
+        }
         
-        owners = new ArrayList(ownerService.getAllOwners());
-        return new ResponseEntity<List<OwnerDto>>(owners, HttpStatus.OK);
+        return new ResponseEntity<>(ownerDtos, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/owners",method = RequestMethod.POST)
     public ResponseEntity<String> createOwner(@RequestBody OwnerDto ownerDto) {
         System.out.println(ownerDto);
-        ownerService.createOwner(this.transformDto(ownerDto));
+        ownerService.createOwner(ownerTransformer.transformDto(ownerDto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
-    }
-    
-    private Owner transformDto(OwnerDto ownerDto) {
-        Owner owner = new Owner();
-        owner.setFirst_name(ownerDto.getFirst_name());
-        owner.setLast_name(ownerDto.getLast_name());
-        owner.setCity(ownerDto.getCity());
-        owner.setPet(null);
-        return owner;    
     }
 }

@@ -31,8 +31,13 @@ public class PetService {
         return petRepository.findAll();
     }
     
-    public void createPet(Pet pet) {
+    public Pet createPet(Pet pet) {
         
-        petRepository.save(pet);
+        Pet newPet = petRepository.save(pet);
+        return newPet;
+    }
+    
+    public Pet getPetById(long id) {
+        return petRepository.findOne(id);
     }
 }

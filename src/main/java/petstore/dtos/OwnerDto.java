@@ -9,32 +9,28 @@ package petstore.dtos;
  *
  * @author zion
  */
-public class OwnerDto {
-    private long id;
+public class OwnerDto extends BaseDto{
+    
     private String first_name;
     private String last_name;
     private String city;
-    private long pet_id;
+    private PetDto pet;
 
     public OwnerDto(){
         
     }
-    public OwnerDto(long id, String first_name, String last_name, String city, long pet_id) {
+
+    public OwnerDto(long id, String first_name, String last_name, String city, PetDto pet) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.city = city;
-        this.pet_id = pet_id;
+        this.pet = pet;
     }
 
     
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    
+  
 
     public String getFirst_name() {
         return first_name;
@@ -60,12 +56,14 @@ public class OwnerDto {
         this.city = city;
     }
 
-    public long getPet_id() {
-        return pet_id;
+    public PetDto getPet() {
+        return pet;
     }
 
-    public void setPet_id(long pet_id) {
-        this.pet_id = pet_id;
+    public void setPet(PetDto pet) {
+        this.pet = pet;
     }
+
+    
     
 }
