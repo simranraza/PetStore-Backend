@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class PetResource {
     @Autowired
     PetTransformer petTransformer;
     
+    @CrossOrigin
     @RequestMapping(value = "/pets",method = RequestMethod.GET)
     public ResponseEntity<List<PetDto>> getAllPets() {
         List<PetDto> petsDtos = new ArrayList<>();
@@ -55,7 +57,7 @@ public class PetResource {
         pets = new ArrayList(petService.getAllPets());
         
         for(Pet pet : pets) {
-            petsDtos.add(petTransformer.transformPojo(pet));
+            petsDtos.add(petTransformer.transformPojo(pet, false));
         }
         return new ResponseEntity<>(petsDtos,HttpStatus.OK ) ;
     }

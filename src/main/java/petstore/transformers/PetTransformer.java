@@ -9,7 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import petstore.dtos.OwnerDto;
 import petstore.dtos.PetDto;
+import petstore.models.Owner;
 import petstore.models.Pet;
 import petstore.services.OwnerService;
 
@@ -48,7 +50,14 @@ public class PetTransformer {
         petDto.setId(pet.getId());
         petDto.setName(pet.getName());
         petDto.setBirthday(pet.getBirthday() != null ? pet.getBirthday().toLocaleString(): null);
-        petDto.setOwner(null);
+        if (isChild)
+            petDto.setOwner(null);
+        else { 
+            if (pet.getOwner() != null) {
+                OwnerDto tempOwner = this.ownerTransformer.transformPojo(pet.getOwner());
+                petDto.setOwner(tempOwner);
+            }
+        }   
         return petDto;
     }
 }
